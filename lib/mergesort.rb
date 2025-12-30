@@ -4,23 +4,30 @@ require_relative 'sorted'
 
 class Mergesort
   def self.mergesort(arr)
-    return arr if arr.length == 1
+    return arr if arr.length <= 1
 
-    left_arr = mergesort(arr[0..(arr.length / 2) - 1])
-    right_arr = mergesort(arr[(arr.length / 2)..])
+    mid = arr.length / 2
+    left_arr = mergesort(arr[0...mid])
+    right_arr = mergesort(arr[mid...])
     merge(left_arr, right_arr)
   end
 
   def self.merge(left_arr, right_arr)
     new_arr = []
-    while !left_arr.empty? && !right_arr.empty?
-      if left_arr[0] < right_arr[0]
-        new_arr.push(left_arr.shift)
+    left = 0
+    right = 0
+    while left < left_arr.length && right < right_arr.length
+      if left_arr[left] <= right_arr[right]
+        new_arr << left_arr[left]
+        left += 1
       else
-        new_arr.push(right_arr.shift)
+        new_arr << right_arr[right]
+        right += 1
       end
     end
-    new_arr + left_arr + right_arr
+    new_arr.concat(left_arr[left...])
+    new_arr.concat(right_arr[right...])
+    new_arr
   end
 
   private_class_method :merge

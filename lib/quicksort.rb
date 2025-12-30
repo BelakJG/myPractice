@@ -3,19 +3,25 @@
 require_relative 'sorted'
 
 class Quicksort
-  def self.quicksort(array, left_index, pivot_index)
-    return if left_index == pivot_index
+  def self.quicksort(array, left_index, right_index)
+    return if left_index >= right_index
 
-    (left_index + 1..pivot_index - 1).each do |n|
-      next unless array[n] < array[pivot_index]
+    swap_index = left_index - 1
+    pivot = array[right_index]
+    (left_index...right_index).each do |n|
+      next unless array[n] <= pivot
 
-      left_index += 1
-      swap(array, left_index, n)
+      swap_index += 1
+      temp = array[swap_index]
+      array[swap_index] = array[n]
+      array[n] = temp
     end
-    swap(array, left_index + 1, pivot_index)
-    quicksort(array, left_index + 1, pivot_index)
-    quicksort(array, -1, left_index)
-    array
+    swap_index += 1
+    temp = array[swap_index]
+    array[swap_index] = array[right_index]
+    array[right_index] = temp
+    quicksort(array, left_index, swap_index - 1)
+    quicksort(array, swap_index + 1, right_index)
   end
 
   def self.swap(array, left, right)

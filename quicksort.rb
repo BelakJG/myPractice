@@ -23,8 +23,8 @@ def swap(array, left, right)
 end
 
 test_array = []
-10.times do
-  test_array.push(rand(0..25))
+100.times do
+  test_array.push(rand(0..2500))
 end
 p test_array
 p quicksort(test_array, -1, test_array.length - 1)

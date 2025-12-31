@@ -3,16 +3,16 @@
 require_relative 'sorted'
 class InsertionSort
   def self.insertion_sort(arr)
-    (0...arr.length - 1).each do |left|
-      (left + 1...arr.length).each do |right|
-        swap(arr, left, right) if arr[left] > arr[right]
-      end
-    end
-  end
+    (1...arr.length).each do |i|
+      key = arr[i]
+      j = i - 1
 
-  def self.swap(array, left, right)
-    temp = array[left]
-    array[left] = array[right]
-    array[right] = temp
+      while j >= 0 && arr[j] > key
+        arr[j + 1] = arr[j]
+        j -= 1
+      end
+      arr[j + 1] = key
+    end
+    arr
   end
 end
